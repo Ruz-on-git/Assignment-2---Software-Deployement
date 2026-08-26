@@ -8,11 +8,11 @@ app.get("/", (req, res) => {
     res.send(`
         <html>
             <head>
-                <title>Azure Starter App</title>
+                <title>Starter app/title>
             </head>
             <body>
-                <h1>Hello from Azure App Service!</h1>
-                <p>This Node.js application is running on Linux.</p>
+                <h1>Running Test/h1>
+                <p>Running node.js</p>
             </body>
         </html>
     `);
