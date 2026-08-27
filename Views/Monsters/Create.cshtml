@@ -1,0 +1,35 @@
+@model Assignment_2.Models.Monster
+
+@{
+    ViewData["Title"] = "Create Monster";
+    ViewData["ShowPlaceholders"] = true;
+}
+
+<div class="monster-form">
+    <div class="monster-form-header">
+        <span class="eyebrow">MONSTER LIBRARY</span>
+        <h1>Create Monster</h1>
+        <p>Create a new creature for your adventures.</p>
+    </div>
+
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        @await Html.PartialAsync("_BasicInfoFields", Model)
+        @await Html.PartialAsync("_AbilityScoreInputs", Model)
+
+        <div class="monster-form-section">
+            <h3>Description</h3>
+            <textarea asp-for="Description" class="form-control" rows="6" placeholder="Describe your monster..."></textarea>
+        </div>
+
+        <div class="monster-form-actions">
+            <button type="submit" class="btn btn-primary btn-lg">Create Monster</button>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

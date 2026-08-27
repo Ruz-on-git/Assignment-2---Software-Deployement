@@ -1,22 +1,665 @@
+/* =========================================
+   General
+   ========================================= */
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #f8f7fa;
+}
+
+
+/* =========================================
+   Homepage
+   ========================================= */
+
+.hero-section {
+    margin-top: -24px;
+    margin-left: calc(-50vw + 50%);
+    width: 100vw;
+    min-height: 520px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            rgba(20, 18, 25, 0.88),
+            rgba(20, 18, 25, 0.94)
+        ),
+        radial-gradient(
+            circle at 70% 30%,
+            #5c3b70,
+            #17151d 60%
+        );
+
+    color: white;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px;
+}
+
+.eyebrow {
+    display: block;
+    margin-bottom: 14px;
+
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    color: #c084fc;
+}
+
+.hero-content h1 {
+    max-width: 750px;
+    margin-bottom: 24px;
+
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+}
+
+.hero-content p {
+    max-width: 600px;
+    margin-bottom: 32px;
+
+    font-size: 1.15rem;
+    line-height: 1.7;
+
+    color: #d6d3d8;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.hero-buttons .btn-primary {
+    background-color: #8b5cf6;
+    border-color: #8b5cf6;
+}
+
+.hero-buttons .btn-primary:hover {
+    background-color: #7c3aed;
+    border-color: #7c3aed;
+}
+
+.features-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px;
+}
+
+.section-heading {
+    margin-bottom: 40px;
+}
+
+.section-heading h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.feature-card {
+    padding: 30px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    background: #f3e8ff;
+    color: #7c3aed;
+
+    font-size: 1.4rem;
+}
+
+.feature-card h3 {
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.feature-card p {
+    margin: 0;
+
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   Monster List
+   ========================================= */
+
+.monster-page {
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+.monster-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.monster-header h1 {
+    margin: 0;
+    font-weight: 800;
+}
+
+.monster-subtitle {
+    color: #6b7280;
+    margin-top: 5px;
+}
+
+.monster-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.monster-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.monster-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.monster-card-header {
+    padding: 20px;
+    background: #211b2b;
+    color: white;
+}
+
+.monster-card-header h3 {
+    margin: 0;
+}
+
+.monster-type {
+    color: #c084fc;
+    font-size: 0.9rem;
+}
+
+.monster-card-body {
+    padding: 20px;
+}
+
+.monster-stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.monster-stat-row:last-child {
+    border-bottom: none;
+}
+
+.monster-stat-label {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.monster-stat-value {
+    font-weight: 700;
+}
+
+.monster-card-footer {
+    padding: 15px 20px;
+    background: #f9fafb;
+    border-top: 1px solid #eee;
+}
+
+
+/* =========================================
+   Monster Details / Stat Sheet
+   ========================================= */
+
+.monster-sheet {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.monster-sheet-header {
+    background: #211b2b;
+    color: white;
+    padding: 30px;
+}
+
+.monster-sheet-header h1 {
+    margin: 0;
+    font-weight: 800;
+}
+
+.monster-sheet-header p {
+    margin: 5px 0 0;
+    color: #c084fc;
+}
+
+.monster-section {
+    padding: 25px 30px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.monster-section:last-child {
+    border-bottom: none;
+}
+
+.monster-section h3 {
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   Combat Statistics
+   ========================================= */
+
+.combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.combat-stat {
+    padding: 20px;
+    text-align: center;
+
+    background: #f9fafb;
+    border-radius: 10px;
+}
+
+.combat-stat-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+.combat-stat-value {
+    display: block;
+    margin-top: 5px;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+
+/* =========================================
+   Ability Scores
+   ========================================= */
+
+.ability-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+}
+
+.ability-score {
+    padding: 15px 10px;
+    text-align: center;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.ability-name {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6b7280;
+}
+
+.ability-value {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-top: 5px;
+}
+
+
+/* =========================================
+   Monster Forms
+   ========================================= */
+
+.monster-form {
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+.monster-form-section {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.monster-form-section h3 {
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   Empty Monster Library
+   ========================================= */
+
+.empty-monsters {
+    text-align: center;
+    padding: 70px 20px;
+
+    background: #f9fafb;
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+}
+
+.empty-monsters h3 {
+    margin-bottom: 10px;
+}
+
+.empty-monsters p {
+    color: #6b7280;
+}
+
+
+/* =========================================
+   Buttons
+   ========================================= */
+
+.btn-primary {
+    background-color: #7c3aed;
+    border-color: #7c3aed;
+}
+
+.btn-primary:hover {
+    background-color: #6d28d9;
+    border-color: #6d28d9;
+}
+
+
+/* =========================================
+   Mobile
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .hero-section {
+        min-height: 450px;
+    }
+
+    .hero-content {
+        padding: 60px 24px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.7rem;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .monster-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .combat-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ability-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .monster-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+.monster-form {
+    max-width: 1000px;
+    margin: 50px auto;
+}
+
+.monster-form-header {
+    margin-bottom: 30px;
+}
+
+.monster-form-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.monster-form-header p {
+    color: #6b7280;
+    font-size: 1.05rem;
+}
+
+.monster-form-section {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 20px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.monster-form-section h3 {
+    font-weight: 700;
+    margin-bottom: 22px;
+}
+
+.form-help {
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+.monster-form .form-label {
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.monster-form .form-control {
+    border-color: #d1d5db;
+    border-radius: 7px;
+    padding: 10px 12px;
+}
+
+.monster-form .form-control:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.15);
+}
+
+.ability-form-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+}
+
+.ability-form-grid .form-label {
+    display: block;
+    text-align: center;
+}
+
+.ability-form-grid .form-control {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.monster-form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+
+/* =========================================
+   Delete Page
+   ========================================= */
+
+.delete-page {
+    max-width: 700px;
+    margin: 70px auto;
+}
+
+.delete-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 35px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.delete-warning {
+    padding: 18px 20px;
+    margin-bottom: 25px;
+
+    border-radius: 8px;
+
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.delete-monster-name {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.delete-monster-type {
+    color: #6b7280;
+    margin-bottom: 25px;
+}
+
+.delete-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.delete-stat {
+    padding: 15px;
+    background: #f9fafb;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.delete-stat-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+.delete-stat-value {
+    display: block;
+    margin-top: 5px;
+    font-weight: 800;
+}
+
+.delete-actions {
+    display: flex;
+    gap: 12px;
+}
+
+
+/* =========================================
+   Form Mobile
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .monster-form {
+        margin: 30px auto;
+    }
+
+    .ability-form-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .monster-form-actions {
+        flex-direction: column;
+    }
+
+    .monster-form-actions .btn {
+        width: 100%;
+    }
+
+    .delete-page {
+        margin: 30px auto;
+    }
+
+    .delete-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .delete-actions {
+        flex-direction: column;
+    }
+
+    .delete-actions .btn {
+        width: 100%;
+    }
 }

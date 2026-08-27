@@ -1,8 +1,34 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "DND Monster Manager";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-section">
+    <div class="hero-content">
+        <span class="eyebrow">DND Monster Tool</span>
+
+        <p>Create and manage monster for DND</p>
+
+        <div class="hero-buttons">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-controller="Monsters" asp-action="Index" class="btn btn-primary btn-lg">
+                    View My Monsters
+                </a>
+
+                <a asp-controller="Monsters" asp-action="Create" class="btn btn-outline-light btn-lg"> 
+                    Create Monster
+                </a>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg">
+                    Get Started
+                </a>
+
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-light btn-lg">
+                    Login
+                </a>
+            }
+        </div>
+    </div>
 </div>

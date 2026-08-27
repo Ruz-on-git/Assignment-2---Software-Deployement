@@ -1,0 +1,44 @@
+@model Assignment_2.Models.Monster
+
+@{
+    ViewData["Title"] = "Delete Monster";
+
+    var stats = new (string Label, string Value)[]
+    {
+        ("Challenge Rating", Model.ChallengeRating.ToString()),
+        ("Health", Model.MaxHealth.ToString()),
+        ("Armor Class", Model.ArmorClass.ToString()),
+    };
+}
+
+<div class="delete-page">
+    <div class="delete-card">
+        <span class="eyebrow">MONSTER LIBRARY</span>
+        <h1>Delete Monster</h1>
+
+        <div class="delete-warning"><strong>Warning:</strong> This action cannot be undone.</div>
+
+        <div class="delete-monster-name">@Model.Name</div>
+        <div class="delete-monster-type">@Model.Type</div>
+
+        <div class="delete-stats">
+            @foreach (var stat in stats)
+            {
+                <div class="delete-stat">
+                    <span class="delete-stat-label">@stat.Label</span>
+                    <span class="delete-stat-value">@stat.Value</span>
+                </div>
+            }
+        </div>
+
+        <p>Are you sure you want to permanently delete <strong>@Model.Name</strong>?</p>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="delete-actions">
+                <button type="submit" class="btn btn-danger btn-lg">Delete Monster</button>
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

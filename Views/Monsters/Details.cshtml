@@ -1,0 +1,73 @@
+@model Assignment_2.Models.Monster
+
+@{
+    ViewData["Title"] = Model.Name;
+
+    var combatStats = new (string Label, string Value)[]
+    {
+        ("Health", $"{Model.CurrentHealth} / {Model.MaxHealth}"),
+        ("Armor Class", Model.ArmorClass.ToString()),
+        ("Speed", $"{Model.Speed} ft."),
+        ("CR", Model.ChallengeRating.ToString()),
+    };
+
+    var abilityScores = new (string Label, int Value)[]
+    {
+        ("STR", Model.Strength), ("DEX", Model.Dexterity), ("CON", Model.Constitution),
+        ("INT", Model.Intelligence), ("WIS", Model.Wisdom), ("CHA", Model.Charisma),
+    };
+}
+
+<div class="monster-page">
+    <div class="monster-sheet">
+        <div class="monster-sheet-header">
+            <span class="monster-type">@Model.Type</span>
+            <h1>@Model.Name</h1>
+            <p>Challenge Rating @Model.ChallengeRating</p>
+        </div>
+
+        <div class="monster-section">
+            <h3>Combat Statistics</h3>
+            <div class="combat-stats">
+                @foreach (var stat in combatStats)
+                {
+                    <div class="combat-stat">
+                        <span class="combat-stat-label">@stat.Label</span>
+                        <span class="combat-stat-value">@stat.Value</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="monster-section">
+            <h3>Ability Scores</h3>
+            <div class="ability-grid">
+                @foreach (var ability in abilityScores)
+                {
+                    <div class="ability-score">
+                        <span class="ability-name">@ability.Label</span>
+                        <span class="ability-value">@ability.Value</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="monster-section">
+            <h3>Description</h3>
+            @if (string.IsNullOrWhiteSpace(Model.Description))
+            {
+                <p class="text-muted">No description has been added.</p>
+            }
+            else
+            {
+                <p>@Model.Description</p>
+            }
+        </div>
+
+        <div class="monster-section">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit Monster</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Delete</a>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back to Monsters</a>
+        </div>
+    </div>
+</div>

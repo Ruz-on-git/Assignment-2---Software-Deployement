@@ -1,0 +1,62 @@
+@model IEnumerable<Assignment_2.Models.Monster>
+
+@{
+    ViewData["Title"] = "My Monsters";
+}
+
+<div class="monster-page">
+    <div class="monster-header">
+        <div>
+            <span class="eyebrow">MONSTER LIBRARY</span>
+            <h1>My Monsters</h1>
+            <p class="monster-subtitle">Your collection of creatures for your adventures.</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">+ Create Monster</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-monsters">
+            <h3>No monsters yet</h3>
+            <p>Create your first monster to start building your library.</p>
+            <a asp-action="Create" class="btn btn-primary">Create Your First Monster</a>
+        </div>
+    }
+    else
+    {
+        <div class="monster-grid">
+            @foreach (var monster in Model)
+            {
+                var stats = new (string Label, string Value)[]
+                {
+                    ("Challenge Rating", monster.ChallengeRating.ToString()),
+                    ("Health", $"{monster.CurrentHealth} / {monster.MaxHealth}"),
+                    ("Armor Class", monster.ArmorClass.ToString()),
+                    ("Speed", $"{monster.Speed} ft."),
+                };
+
+                <div class="monster-card">
+                    <div class="monster-card-header">
+                        <span class="monster-type">@monster.Type</span>
+                        <h3>@monster.Name</h3>
+                    </div>
+
+                    <div class="monster-card-body">
+                        @foreach (var stat in stats)
+                        {
+                            <div class="monster-stat-row">
+                                <span class="monster-stat-label">@stat.Label</span>
+                                <span class="monster-stat-value">@stat.Value</span>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="monster-card-footer">
+                        <a asp-action="Details" asp-route-id="@monster.Id" class="btn btn-sm btn-primary">View</a>
+                        <a asp-action="Edit" asp-route-id="@monster.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

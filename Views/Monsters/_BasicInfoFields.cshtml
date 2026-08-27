@@ -1,0 +1,48 @@
+@model Assignment_2.Models.Monster
+@{
+    bool showCurrentHealth = ViewData["ShowCurrentHealth"] as bool? ?? false;
+    bool showPlaceholders = ViewData["ShowPlaceholders"] as bool? ?? false;
+}
+
+<div class="monster-form-section">
+    <h3>Basic Information</h3>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" placeholder="@(showPlaceholders ? "e.g. Goblin" : "")" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Type" class="form-label">Creature Type</label>
+            <input asp-for="Type" class="form-control" placeholder="@(showPlaceholders ? "e.g. Humanoid" : "")" />
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="ChallengeRating" class="form-label">Challenge Rating</label>
+            <input asp-for="ChallengeRating" class="form-control" placeholder="@(showPlaceholders ? "e.g. 0.25" : "")" />
+            <span asp-validation-for="ChallengeRating" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="MaxHealth" class="form-label">Maximum Health</label>
+            <input asp-for="MaxHealth" class="form-control" placeholder="@(showPlaceholders ? "e.g. 15" : "")" />
+            <span asp-validation-for="MaxHealth" class="text-danger"></span>
+        </div>
+        @if (showCurrentHealth)
+        {
+            <div class="col-md-4 mb-3">
+                <label asp-for="CurrentHealth" class="form-label">Current Health</label>
+                <input asp-for="CurrentHealth" class="form-control" />
+            </div>
+        }
+        <div class="col-md-4 mb-3">
+            <label asp-for="ArmorClass" class="form-label">Armor Class</label>
+            <input asp-for="ArmorClass" class="form-control" placeholder="@(showPlaceholders ? "e.g. 15" : "")" />
+            <span asp-validation-for="ArmorClass" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="Speed" class="form-label">Speed (ft.)</label>
+            <input asp-for="Speed" class="form-control" placeholder="@(showPlaceholders ? "e.g. 30" : "")" />
+            <span asp-validation-for="Speed" class="text-danger"></span>
+        </div>
+    </div>
+</div>
