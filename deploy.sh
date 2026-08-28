@@ -5,7 +5,6 @@ set -e
 RESOURCE_GROUP="EastAsia_Area"
 APP_NAME="Software-Deployment-Assignment-2"
 PLAN_NAME="Assignment-2-Plan"
-APP_INSIGHTS_NAME="Software-Deployment-Assignment-2"
 LOCATION="eastasia"
 PLAN_TIER="F1"
 
@@ -49,48 +48,12 @@ if ! az webapp show \
         --runtime "DOTNETCORE:8.0"
 fi
 
-echo "Getting Application Insights connection string..."
-
-if ! az resource show \
-    --resource-group "$RESOURCE_GROUP" \
-    --name "$APP_INSIGHTS_NAME" \
-    --resource-type "Microsoft.Insights/components" \
-    --output none 2>/dev/null; then
-
-    echo "Creating Application Insights..."
-
-    az monitor app-insights component create \
-        --app "$APP_INSIGHTS_NAME" \
-        --location "$LOCATION" \
-        --resource-group "$RESOURCE_GROUP" \
-        --application-type web
-
-    echo "Application Insights created."
-else
-    echo "Application Insights '$APP_INSIGHTS_NAME' already exists."
-fi
-
-echo "Getting Application Insights connection string..."
-
-APP_INSIGHTS_CONNECTION_STRING=$(az resource show \
-    --resource-group "$RESOURCE_GROUP" \
-    --name "$APP_INSIGHTS_NAME" \
-    --resource-type "Microsoft.Insights/components" \
-    --query "properties.ConnectionString" \
-    --output tsv)
-
-if [ -z "$APP_INSIGHTS_CONNECTION_STRING" ]; then
-    echo "ERROR: Could not find Application Insights connection string."
-    exit 1
-fi
-
 echo "Configuring App Service settings..."
     az webapp config appsettings set \
         --resource-group "$RESOURCE_GROUP" \
         --name "$APP_NAME" \
         --settings \
             "ASPNETCORE_ENVIRONMENT=Production" \
-            "APPLICATIONINSIGHTS_CONNECTION_STRING=$APP_INSIGHTS_CONNECTION_STRING" \
             "ConnectionStrings__DefaultConnection=DataSource=app.db;Cache=Shared"
 
 echo "Enabling diagnostics..."
