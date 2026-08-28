@@ -9,58 +9,58 @@ LOCATION="eastasia"
 PLAN_TIER="F1"
 
 
-if ! az group show \
-    --name "$RESOURCE_GROUP" \
-    --output none 2>/dev/null; then
+# if ! az group show \
+#     --name "$RESOURCE_GROUP" \
+#     --output none 2>/dev/null; then
 
-    echo "Resource group '$RESOURCE_GROUP' does not exist."
-    echo "Creating resource group in '$LOCATION'..."
+#     echo "Resource group '$RESOURCE_GROUP' does not exist."
+#     echo "Creating resource group in '$LOCATION'..."
 
-    az group create \
-        --name "$RESOURCE_GROUP" \
-        --location "$LOCATION"
+#     az group create \
+#         --name "$RESOURCE_GROUP" \
+#         --location "$LOCATION"
 
-    echo "Resource group created."
-else
-    echo "Resource group '$RESOURCE_GROUP' already exists."
-fi
+#     echo "Resource group created."
+# else
+#     echo "Resource group '$RESOURCE_GROUP' already exists."
+# fi
 
-if ! az webapp show \
-    --resource-group "$RESOURCE_GROUP" \
-    --name "$APP_NAME" \
-    --output none 2>/dev/null; then
+# if ! az webapp show \
+#     --resource-group "$RESOURCE_GROUP" \
+#     --name "$APP_NAME" \
+#     --output none 2>/dev/null; then
 
-    echo "Creating App Service Plan..."
+#     echo "Creating App Service Plan..."
 
-    az appservice plan create \
-        --resource-group "$RESOURCE_GROUP" \
-        --name "$PLAN_NAME" \
-        --location "$LOCATION" \
-        --sku "$PLAN_TIER" \
-        --is-linux
+#     az appservice plan create \
+#         --resource-group "$RESOURCE_GROUP" \
+#         --name "$PLAN_NAME" \
+#         --location "$LOCATION" \
+#         --sku "$PLAN_TIER" \
+#         --is-linux
 
-    echo "Creating Web App..."
+#     echo "Creating Web App..."
 
-    az webapp create \
-        --resource-group "$RESOURCE_GROUP" \
-        --plan "$PLAN_NAME" \
-        --name "$APP_NAME" \
-        --runtime "DOTNETCORE:8.0"
-fi
+#     az webapp create \
+#         --resource-group "$RESOURCE_GROUP" \
+#         --plan "$PLAN_NAME" \
+#         --name "$APP_NAME" \
+#         --runtime "DOTNETCORE:8.0"
+# fi
 
-echo "Configuring App Service settings..."
-    az webapp config appsettings set \
-        --resource-group "$RESOURCE_GROUP" \
-        --name "$APP_NAME" \
-        --settings \
-            "ASPNETCORE_ENVIRONMENT=Production" \
-            "ConnectionStrings__DefaultConnection=DataSource=app.db;Cache=Shared"
+# echo "Configuring App Service settings..."
+#     az webapp config appsettings set \
+#         --resource-group "$RESOURCE_GROUP" \
+#         --name "$APP_NAME" \
+#         --settings \
+#             "ASPNETCORE_ENVIRONMENT=Production" \
+#             "ConnectionStrings__DefaultConnection=DataSource=app.db;Cache=Shared"
 
-echo "Enabling diagnostics..."
-    az webapp log config \
-        --resource-group "$RESOURCE_GROUP" \
-        --name "$APP_NAME" \
-        --level information
+# echo "Enabling diagnostics..."
+#     az webapp log config \
+#         --resource-group "$RESOURCE_GROUP" \
+#         --name "$APP_NAME" \
+#         --level information
 
 echo "Publishing application..."
     rm -rf ./publish
@@ -68,7 +68,11 @@ echo "Publishing application..."
     dotnet publish -c Release -o ./publish
 
     cd publish
-    zip -r ../app.zip .
+    if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || -n "$WINDIR" ]]; then
+        powershell.exe -Command "Compress-Archive -Path .\* -DestinationPath ../app.zip -Force"
+    else
+        zip -r ../app.zip .
+    fi
     cd ..
 
 
